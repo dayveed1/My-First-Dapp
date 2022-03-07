@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dapp</title>
+</head>
+<body>
+    <script charset="utf-8"
+    src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
+    type="text/javascript">
+    </script>
+
+    <h1 class="first-dapp">This is my Dapp</h1>
+    <p class="mood">Here we can set or get the mood: </p>
+    <label for="mood" class="new">Input</label>
+     <input type="text" id="mood"/>
+     <div class="butt1">
+         <button onclick="getMood()"> get Mood </button>
+     </div>
+
+     <div class="butt2">
+        <button onclick="setMood()"> set Mood </button>
+    </div>
+
+</body>
+
+<script class="any">
+    window.ethereum.enable()
+    var provider = new ethers.providers.Web3Provider(web3.currentProvider, 'ropsten');
+
+    var MoodContractAddress = "0xD35a54229434a38A05573C4e2B0B72C998Fa9fD3";
+    let MoodContractABI = [
+	{
+		"inputs": [],
+		"name": "getMood",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_mood",
+				"type": "string"
+			}
+		],
+		"name": "setMood",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+
+    
+    
+    provider.listAccounts().then(function (accounts) {
+        signer = provider.getSigner(accounts[0]);
+        MoodContract = new ethers.Contract(MoodContractAddress, MoodContractABI, signer);
+      })
+    async function getMood() {
+        getMoodPromise = MoodContract.getMood();
+        var Mood = await getMoodPromise;
+        console.log(Mood);
+    }
+    async function setMood() {
+        let mood = document.getElementById("mood").value;
+        setMoodPromise = MoodContract.setMood(mood);
+        await setMoodPromise;
+    }
+</script>
+</html>
+
+</script>
+</body>
