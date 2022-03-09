@@ -5,7 +5,7 @@ My Journey To Blockchain Development
 
 Creating a basic html web page
 
-Creating a basic solidity smart contract and finally
+Creating a basic solidity smart contract and finally,
 
 Connecting the web page with the smart contracts using Ethersjs.
 
